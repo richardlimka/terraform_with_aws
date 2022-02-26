@@ -63,13 +63,13 @@ resource "aws_route_table_association" "public_rt_association" {
   route_table_id = aws_route_table.public_rt.id
 }
 
-# Route table Association with Private Subnet.
+# Route table association with Private Subnet.
 resource "aws_route_table_association" "private_rt_association" {
   subnet_id      = aws_subnet.private_subnet.id
   route_table_id = aws_route_table.private_rt.id
 }
 
-# Create Elastic IP for NAT.
+# Create Elastic IP for NAT Gateway.
 resource "aws_eip" "nat_eip" {
   vpc = true
   tags = {
@@ -80,7 +80,7 @@ resource "aws_eip" "nat_eip" {
 # Create NAT Gateway.
 resource "aws_nat_gateway" "nat_gw" {
   allocation_id = aws_eip.nat_eip.id
-  subnet_id     = aws_subnet.public_subnet.id
+  subnet_id     = aws_subnet.private_subnet.id
   tags = {
     Name = "${var.vpc_name} NAT GW"
   }

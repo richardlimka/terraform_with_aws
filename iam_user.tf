@@ -1,6 +1,6 @@
-resource "aws_iam_user" "test-user1" {
-  name = "test-user1"
+resource "aws_iam_user" "test-user" {
+  name = "test-user"
   tags = {
-    Description = "Test User 1"
+    Description = "Test User"
   }
 }

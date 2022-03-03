@@ -19,6 +19,10 @@ resource "aws_internet_gateway" "demo_internet_gw" {
 resource "aws_subnet" "demo_public_subnet" {
   vpc_id     = aws_vpc.demo_vpc.id
   cidr_block = var.public_subnet
+  
+  map_public_ip_on_launch = true
+  availability_zone = var.availability_zone
+
   tags = {
     Name = "${var.project_name} Public SN"
   }
@@ -28,6 +32,8 @@ resource "aws_subnet" "demo_public_subnet" {
 resource "aws_subnet" "demo_private_subnet" {
   vpc_id     = aws_vpc.demo_vpc.id
   cidr_block = var.private_subnet
+  availability_zone = var.availability_zone
+
   tags = {
     Name = "${var.project_name} Private SN"
   }

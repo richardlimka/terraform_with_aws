@@ -64,12 +64,12 @@ resource "aws_lb_target_group" "demo_lb_target_group_http" {
 
 resource "aws_lb_target_group_attachment" "demo_lb_target_group_attachment_ssh" {
   target_group_arn  = aws_lb_target_group.demo_lb_target_group_ssh.arn
-  target_id         = aws_instance.demo_ec2.id
+  target_id         = aws_instance.demo_private_ec2.id
   port              = 22
 }
 
 resource "aws_lb_target_group_attachment" "demo_lb_target_group_attachment_http" {
   target_group_arn  = aws_lb_target_group.demo_lb_target_group_http.arn
-  target_id         = aws_instance.demo_ec2.id
+  target_id         = aws_instance.demo_private_ec2.id
   port              = 80
 }

@@ -12,7 +12,7 @@ resource "aws_instance" "demo_private_ec2" {
   }
 }
 
-# Included for the purpose of testing.
+# Included for the purpose of testing, and as bastion host.
 resource "aws_instance" "demo_public_ec2" {
   ami           = "ami-04505e74c0741db8d"
   instance_type = "t2.micro"
@@ -47,6 +47,22 @@ resource "aws_security_group" "demo_ec2_sg" {
     to_port          = 80
     protocol         = "tcp"
     cidr_blocks      = var.ingress_sg_cidr_blocks_http
+  }
+
+  # For troubleshooting purpose.
+    ingress {
+    description      = "For troubleshooting purpose"
+    from_port        = -1
+    to_port          = -1
+    protocol         = "icmp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+    egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
   }
 
 
